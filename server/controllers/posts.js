@@ -1,4 +1,5 @@
-
-export const getPosts = (req, res) => {
-    res.send("OK")
+const getPosts = (req, res) => {
+    res.send("phen")
 };
+
+export {getPosts};
