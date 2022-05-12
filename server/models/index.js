@@ -1,14 +1,14 @@
-const clubDb = require('./database/clubDb')
-const goalDb = require('./database/goalDb')
-const matchDb = require('./database/matchDb')
-const matchDetailDb = require('./database/matchDetailDb')
-const parameterDb = require('./database/parameterDb')
-const playerDb =  require('./database/playerDb')
-const stadiumDb  = require('./database/stadiumDb')
-const StandingDb  = require('./database/StandingDb')
-const userDb = require('./database/userDb')
+import clubDb from'./database/clubDb';
+import goalDb from  './database/goalDb';
+import matchDb from  './database/matchDb';
+import matchDetailDb from  './database/matchDetailDb';
+import parameterDb from  './database/parameterDb';
+import playerDb from  './database/playerDb';
+import stadiumDb  from  './database/stadiumDb';
+import StandingDb  from  './database/StandingDb';
+import userDb from './database/userDb';
 
-module.exports = {
+export {
     clubDb,
     goalDb,
     matchDb,

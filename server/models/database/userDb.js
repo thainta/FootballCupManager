@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 
-const url = require('../../utils/connection')
+import url from '../../utils/connection.js  ';
 
 const { Schema } = mongoose
 // const { ObjectId } = Schema
@@ -29,4 +29,4 @@ const UserSchema = new Schema(
     collection: 'user',
   },
 )
-module.exports = mongoose.model('user', UserSchema)
+export default mongoose.model('user', UserSchema)

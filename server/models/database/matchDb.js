@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 
-const url = require('../../utils/connection')
+import url from '../../utils/connection';
 
 const { Schema } = mongoose
 // const { ObjectId } = Schema
