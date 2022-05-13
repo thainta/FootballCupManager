@@ -25,4 +25,4 @@ const MatchDetailSchema = new Schema(
     collection: 'match_detail',
   },
 )
-module.exports = mongoose.model('match_detail', MatchDetailSchema)
+export default mongoose.model('match_detail', MatchDetailSchema)

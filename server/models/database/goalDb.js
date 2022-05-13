@@ -23,4 +23,4 @@ const GoalSchema = new Schema(
     collection: 'goal',
   },
 )
-module.exports = mongoose.model('goal', GoalSchema)
+export default mongoose.model('goal', GoalSchema)

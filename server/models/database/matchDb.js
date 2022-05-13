@@ -23,4 +23,4 @@ const MatchSchema = new Schema(
     collection: 'Match',
   },
 )
-module.exports = mongoose.model('match', MatchSchema)
+export default mongoose.model('match', MatchSchema)

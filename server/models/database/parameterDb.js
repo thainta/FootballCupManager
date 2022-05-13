@@ -21,4 +21,4 @@ const ParameterSchema = new Schema(
     collection: 'parameter',
   },
 )
-module.exports = mongoose.model('parameter', ParameterSchema)
+export default mongoose.model('parameter', ParameterSchema)

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import url from '../../utils/connection';
+import url from '../../utils/connection.js';
 
 const { Schema } = mongoose
 // const { ObjectId } = Schema
@@ -23,4 +23,4 @@ const StadiumSchema = new Schema(
     collection: 'stadium',
   },
 )
-export default mongoose.model('stadium', StadiumSchema)
+export default mongoose.model('stadium', StadiumSchema);

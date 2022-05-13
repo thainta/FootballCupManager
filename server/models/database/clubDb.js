@@ -26,4 +26,4 @@ const ClubSchema = new Schema(
     collection: 'club',
   },
 )
-module.exports = mongoose.model('club', ClubSchema)
+export default mongoose.model('club', ClubSchema)
