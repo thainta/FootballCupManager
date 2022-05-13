@@ -4,10 +4,13 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 import userRoutes from './routers/User.js';
-import playerRoutes from './routers/Player.js'
+import stadiumRoutes from './routers/Stadium.js';
+import playerRoutes from './routers/player.js';
+
 dotenv.config();
 
 const app = express();
+
 const CONNECTION_URL = "mongodb+srv://FootballCupManager:FootballCupManager@cluster0.7hvw3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const PORT = 5000;
 
@@ -23,3 +26,4 @@ mongoose.connect(CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: tru
     
 app.use('/user', userRoutes);
 app.use('/player', playerRoutes);
+app.use('/stadium', stadiumRoutes);
