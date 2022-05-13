@@ -1,7 +1,6 @@
-const mongoose = require('mongoose')
-const { stripVTControlCharacters } = require('util')
+import mongoose from 'mongoose';
 
-const url = require('../../utils/connection')
+import url from '../../utils/connection';
 
 const { Schema } = mongoose
 // const { ObjectId } = Schema
@@ -24,4 +23,4 @@ const StadiumSchema = new Schema(
     collection: 'stadium',
   },
 )
-module.exports = mongoose.model('stadium', StadiumSchema)
+export default mongoose.model('stadium', StadiumSchema)
