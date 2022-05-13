@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 import userRoutes from './routers/User.js';
+import playerRoutes from './routers/Player.js'
 dotenv.config();
 
 const app = express();
@@ -21,3 +22,4 @@ mongoose.connect(CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: tru
 
     
 app.use('/user', userRoutes);
+app.use('/player', playerRoutes);

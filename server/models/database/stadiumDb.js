@@ -23,4 +23,4 @@ const StadiumSchema = new Schema(
     collection: 'stadium',
   },
 )
-module.exports = mongoose.model('stadium', StadiumSchema)
+export default mongoose.model('stadium', StadiumSchema)

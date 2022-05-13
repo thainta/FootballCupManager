@@ -27,7 +27,8 @@ const createNewUser = (req, res) => {
     });
 
     user.save().then((data) => {
-        res.send("Tạo thành công");        
+        res.send("Tạo thành công");  
+        res.send(data);      
     }, (err)=>{
         res.status(400).json(err.message);
     });
