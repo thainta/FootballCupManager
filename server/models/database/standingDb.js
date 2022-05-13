@@ -30,4 +30,4 @@ const StandingSchema = new Schema(
     collection: 'standing',
   },
 )
-module.exports = mongoose.model('standing', StandingSchema)
+export default mongoose.model('standing', StandingSchema)
