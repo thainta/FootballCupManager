@@ -31,11 +31,11 @@ const createNewMatch = async (req, res) => {
 
 const updateMatch = async (req, res) => {
     try{
-        const data = await footballDb.playerDb.findById(req.params.matchId)
+        const data = await matchDb.findById(req.params.matchId)
         data.timeStart = req.body.timeStart
         data.date = req.body.date
         data.status = req.body.status
-        data.stadiumId =  req.body.stadiumId
+        data.stadiumId = req.body.stadiumId
         await data.save()
         res.send("Update successful")
     } catch{
@@ -46,7 +46,7 @@ const updateMatch = async (req, res) => {
 
 const deleteMatch = async (req, res) => {
     try{
-        const match = await footballDb.matchDb.findById(req.params.matchId)
+        const match = await matchDb.findById(req.params.matchId)
         await match.remove()
         res.send("delete sucessful!")
     }catch{
