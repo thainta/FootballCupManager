@@ -13,20 +13,18 @@ const getMatchById = async (req, res) => {
 }
 
 const createNewMatch = async (req, res) => {
-    const match = new matchDb({
-        timeStart : req.body.timeStart,
-        date : req.body.date,
-        status : req.body.status,
-        stadiumId :  req.body.stadiumId,
-    })
-    await match.save()
-    .then((data)=>{
-        res.send("Tạo thành công");
-        res.send(data);
-    }, err => {
-        res.send(err.message); 
-    })
-    res.send({data: match})
+    try{
+        const match = new matchDb({
+            timeStart : req.body.timeStart,
+            date : req.body.date,
+            status : req.body.status,
+            stadiumId :  req.body.stadiumId,
+        })
+        await match.save()
+        res.send("create successful!")
+    } catch{
+        res.status(404).send({error: "can't create match"})
+    }
 }
 
 const updateMatch = async (req, res) => {
