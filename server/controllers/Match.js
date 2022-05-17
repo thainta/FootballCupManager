@@ -1,15 +1,24 @@
 import matchDb from '../models/database/matchDb.js'
 
 const getAllMatchs = async (req, res) => {
-    matchDb.find().then((data)=>{
-        res.send(data);
-    });
+    try {
+        matchDb.find().then((data)=>{
+            res.send(data);
+        });
+    } catch {
+        res.status(404).send({error: "Could'n find match"})
+    }
+ 
 }
 
 const getMatchById = async (req, res) => {
-    matchDb.findById(req.params.matchId).then((data) =>{
+    try{
+        matchDb.findById(req.params.matchId).then((data) =>{
         res.send(data);
     })
+    } catch{
+        res.status(404).send({error: "Could'n find match"})
+    }
 }
 
 const createNewMatch = async (req, res) => {

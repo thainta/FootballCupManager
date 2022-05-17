@@ -4,9 +4,9 @@ import {getAllMatchs, createNewMatch, getMatchById, updateMatch,deleteMatch} fro
 const router = express.Router();
 
 router.get('/', getAllMatchs);
-router.get('/matchId=:MatchId', getMatchById);
+router.get('/matchId=:matchId', getMatchById);
 router.post('/create', createNewMatch);
-router.put('/update/matchId=:MatchId', updateMatch);
+router.put('/update/matchId=:matchId', updateMatch);
 router.delete('/delete/matchId=:MatchId', deleteMatch);
 
 export default router;
