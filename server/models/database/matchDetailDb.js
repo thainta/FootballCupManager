@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import url from '../../utils/connection';
+import url from '../../utils/connection.js';
 
 const { Schema } = mongoose
 // const { ObjectId } = Schema
