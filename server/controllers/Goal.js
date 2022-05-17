@@ -1,15 +1,23 @@
 import goalDb from '../models/database/goalDb.js'
 
 const getAllGoals = async (req, res) => {
-    goalDb.find().then((data)=>{
-        res.send(data);
-    });
+    try {
+        goalDb.find().then((data)=>{
+            res.send(data);
+        });
+    } catch {
+        res.status(404).send({error: "Can't find goal!"})
+    }
 }
 
 const getGoalById = async (req, res) => {
-    goalDb.findById(req.params.goalId).then((data) =>{
-        res.send(data);
-    })
+    try{
+        goalDb.findById(req.params.goalId).then((data) =>{
+            res.send(data);
+        })
+    } catch{
+        res.status(404).send({error: "Can't find goal!"})
+    }
 }
 
 const createNewGoal = async (req, res) => {
