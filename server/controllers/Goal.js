@@ -13,20 +13,18 @@ const getGoalById = async (req, res) => {
 }
 
 const createNewGoal = async (req, res) => {
-    const goal = new goalDb({
+    try{
+        const goal = new goalDb({
         typeGoal: req.body.typeGoal,
         goalTime: req.body.goalTime,
         playerId: req.body.playerId,
         matchId: req.body.matchId
-    })
-    await goal.save()
-    .then((data)=>{
-        res.send("Tạo thành công");
-        res.send(data);
-    }, err => {
-        res.send(err.message); 
-    })
-    res.send({data: goal})
+        })
+        await goal.save()
+        res.send("create successful!")
+    } catch{
+        res.status(404).send({error: "Can't create goal!"})
+    }
 }
 
 const updateGoal = async (req, res) => {
