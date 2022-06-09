@@ -3,11 +3,18 @@ import stadiumDb from '../models/database/stadiumDb.js'
 const getAllStadium = (req, res) =>{
     stadiumDb.find().then((data) =>{
         res.send(data);
+    }, (err) => {
+        res.status(400).send(err.message);
     })
 }
 
 const getStadiumById = (req, res) =>{
-    res.send(req.params);
+    let query = req.params;
+    stadiumDb.findOne(query).then((data) => {
+        res.send(data);
+    }, (err) => {
+        res.status(400).send(err.message);
+    });
 }
 
 const createNewStadium = (req, res) =>{
@@ -21,7 +28,7 @@ const createNewStadium = (req, res) =>{
     stadium.save().then((data) =>{
         res.send(data);
     }, (err) =>{
-        res.send(err.message);
+        res.status(400).send(err.message);
     });
 }
 

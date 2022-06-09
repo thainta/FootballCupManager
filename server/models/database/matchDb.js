@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import url from '../../utils/connection';
+import url from '../../utils/connection.js';
 
 const { Schema } = mongoose
 // const { ObjectId } = Schema
@@ -20,7 +20,8 @@ const MatchSchema = new Schema(
     stadiumId: { type: Schema.Types.ObjectId, ref: 'stadium'}
   },
   {
-    collection: 'Match',
+    collection: 'match',
   },
 )
 export default mongoose.model('match', MatchSchema)
+
