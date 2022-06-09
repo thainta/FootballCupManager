@@ -3,12 +3,18 @@ import UserDb from "../models/database/userDb.js";
 const getAllUser = (req, res) => {
     UserDb.find().then((data) => {
         res.send(data);
+    }, (err) => {
+        res.status(400).send(err.message);
     });
 }
 
 const getUserById = (req, res) => {
-    console.log("Hi");
-    res.send(req.params);
+    let query = req.params;
+    UserDb.findOne(query).then((data) => {
+        res.send(data);
+    }, (err) => {
+        res.status(400).send(err.message);
+    });
 };
 
 const createNewUser = (req, res) => {
@@ -26,11 +32,10 @@ const createNewUser = (req, res) => {
         identityCard: req.body.identityCard
     });
 
-    user.save().then((data) => {
-        res.send("Tạo thành công");  
+    user.save().then((data) => { 
         res.send(data);      
     }, (err)=>{
-        res.status(400).json(err.message);
+        res.status(400).send(err.message);
     });
 }
 
