@@ -1,4 +1,4 @@
-import clubDb from '../models/database/clubDb';
+import clubDb from '../models/database/clubDb.js';
 
 const getAllClub = (req, res) => {
     clubDb.find().then((data) => {
