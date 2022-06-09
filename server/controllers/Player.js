@@ -3,11 +3,18 @@ import playerDb from '../models/database/playerDb.js';
 const getAllPlayers = (req, res) => {
     playerDb.find().then((data)=>{
         res.send(data);
+    }, (err) => {
+        res.status(400).send(err.message);
     });
 }
 
 const getPlayerById = (req, res) => {
-    res.send(req.params);
+    let query = req.params;
+    playerDb.findOne(query).then((data) => {
+        res.send(data);
+    }, (err) => {
+        res.status(400).send(err.message);
+    });
 }
 
 const createNewPlayer = (req, res) => {
@@ -16,16 +23,15 @@ const createNewPlayer = (req, res) => {
         playerRole: req.body.playerRole,
         dayOfBirth: req.body.dayOfBirth,
         nationality: req.body.nationality,
-        avatar: req.body.avater,
+        avatar: req.body.avatar,
         clubId: req.body.clubId
     }); 
-    
+
     player.save
     player.save().then((data)=>{
-        res.send("Tạo thành công");
         res.send(data);
     }, err => {
-        res.send(err.message); 
+        res.status(400).send(err.message);
     })
 }
 
@@ -36,7 +42,7 @@ const updatePlayer = (req, res) => {
         playerRole: req.body.playerRole,
         dayOfBirth: req.body.dayOfBirth,
         nationality: req.body.nationality,
-        avatar: req.body.avater,
+        avatar: req.body.avatar,
         clubId: req.body.clubId
     }, (err, player) => {
         if (err) {
