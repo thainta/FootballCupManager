@@ -11,6 +11,8 @@ import clubRoutes from './routers/club.js';
 
 import goalRoutes from './routers/Goal.js'
 
+import matchDetailRoutes from './routers/MatchDetail.js'
+
 dotenv.config();
 
 const app = express();
@@ -31,6 +33,7 @@ mongoose.connect(CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: tru
 app.use('/user', userRoutes);
 app.use('/player', playerRoutes);
 app.use('/stadium', stadiumRoutes);
+app.use('/match-detail',matchDetailRoutes)
 app.use('/goal', goalRoutes)
 app.use('/match', matchRoutes);
 app.use('/club', clubRoutes);
