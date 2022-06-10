@@ -10,7 +10,7 @@ import matchRoutes from './routers/Match.js';
 import clubRoutes from './routers/club.js';
 
 import goalRoutes from './routers/Goal.js'
-import standingDb from './models/database/standingDb.js';
+import standingRoutes from './routers/Standing.js';
 
 import matchDetailRoutes from './routers/MatchDetail.js'
 
@@ -18,7 +18,7 @@ dotenv.config();
 
 const app = express();
 
-const CONNECTION_URL = "mongodb+srv://FootballCupManager:FootballCupManager@cluster0.7hvw3.mongodb.net/footballmanager?retryWrites=true&w=majority";
+const CONNECTION_URL = "mongodb+srv://FootballCupManager:FootballCupManager@cluster0.7hvw3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const PORT = 5000;
 
 app.use(express.json({extended: true}));
@@ -38,5 +38,5 @@ app.use('/match-detail',matchDetailRoutes)
 app.use('/goal', goalRoutes)
 app.use('/match', matchRoutes);
 app.use('/club', clubRoutes);
-app.use('/standing', stadiumRoutes)
+app.use('/standing', standingRoutes)
 

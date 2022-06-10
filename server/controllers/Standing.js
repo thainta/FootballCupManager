@@ -4,9 +4,8 @@ import parameterDb from '../models/database/parameterDb.js'
 
 const getStanding = async (req, res) =>{
     try {
-        standingDb.find().then((data)=>{
-            res.send(data);
-        });
+        const data = await standingDb.find({})
+        res.send(data)
     } catch {
         res.status(404).send({error: "Can't find standing!"})
     }
@@ -14,9 +13,9 @@ const getStanding = async (req, res) =>{
 
 const getStandingOnSeason = async (req, res) =>{
     try {
-        standingDb.find({'season': req.params.season}).then((data)=>{
-            res.send(data);
-        });
+        const data = await standingDb.find({'season': req.params.season})
+        res.send(data);
+
     } catch {
         res.status(404).send({error: "Can't find standing!"})
     }
@@ -34,7 +33,7 @@ const createNewClubToStanding = async (req, res) => {
             goalsFor: 0,
             goalsAgainst: 0,
             goalDifference: 0,
-            seasonId: req.params.seasonId,
+            seasonId: req.params.season,
             clubId: req.body.clubId
         })
         await newClubStanding.save()
@@ -119,7 +118,7 @@ const updateStandingAfterMatch = async (infor, res) => {
 
 const deleteClubStanding = async (req, res) => {
     try{
-        const club = await standingDb.find({'clubId': req.params.clubId, 'season': req.body.season})
+        const club = await standingDb.findById(req.params.standingId)
         await club.remove()
         res.send("delete sucessful!")
     }catch{
