@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', getAllMatchs);
 router.get('/matchId=:matchId', getMatchById);
-router.post('/create', createNewMatch);
+router.post('/', createNewMatch);
 router.put('/update/matchId=:matchId', updateMatch);
 router.delete('/delete/matchId=:MatchId', deleteMatch);
 

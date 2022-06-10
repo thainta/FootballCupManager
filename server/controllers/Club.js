@@ -1,4 +1,4 @@
-import clubDb from '../models/database/clubDb';
+import clubDb from '../models/database/clubDb.js';
 
 const getAllClub = (req, res) => {
     clubDb.find().then((data) => {
@@ -9,7 +9,8 @@ const getAllClub = (req, res) => {
 }
 
 const getClubById = (req, res) => {
-    let query = req.params;
+    let query = {_id: req.params.clubId};
+
     clubDb.findOne(query).then((data) => {
         res.send(data);
     }, (err) => {
@@ -36,8 +37,8 @@ const createNewClub = (req, res) => {
 }
 
 const updateClub = (req, res) => {
-    let query = req.params;
-
+    let query = {_id: req.params.clubId};
+    console.log(query)
     clubDb.findOneAndUpdate(query, {
         fullName: req.body.fullName,
         shortName: req.body.shortName,
