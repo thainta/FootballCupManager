@@ -17,6 +17,15 @@ const getPlayerById = (req, res) => {
     });
 }
 
+const getPlayerByClub = async (req, res) => {
+    try {
+        const data = await playerDb.find({clubId:req.params.clubId})
+        res.send(data)
+    } catch (err) {
+        res.status(404).send(err)
+    }
+}
+
 const createNewPlayer = (req, res) => {
     let player = new playerDb({
         playerName: req.body.playerName,
@@ -65,6 +74,7 @@ const deletePlayer = (req, res) => {
 export {
     getAllPlayers,
     getPlayerById,
+    getPlayerByClub,
     createNewPlayer,
     updatePlayer,
     deletePlayer
