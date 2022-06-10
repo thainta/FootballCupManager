@@ -11,7 +11,7 @@ import clubRoutes from './routers/club.js';
 
 import goalRoutes from './routers/Goal.js'
 import standingRoutes from './routers/Standing.js';
-
+import parameterRoutes from './routers/Parameter.js';
 import matchDetailRoutes from './routers/MatchDetail.js'
 
 dotenv.config();
@@ -39,4 +39,5 @@ app.use('/goal', goalRoutes)
 app.use('/match', matchRoutes);
 app.use('/club', clubRoutes);
 app.use('/standing', standingRoutes)
+app.use('/parameter', parameterRoutes)
 
