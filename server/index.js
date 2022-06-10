@@ -10,6 +10,7 @@ import matchRoutes from './routers/Match.js';
 import clubRoutes from './routers/club.js';
 
 import goalRoutes from './routers/Goal.js'
+import standingDb from './models/database/standingDb.js';
 
 import matchDetailRoutes from './routers/MatchDetail.js'
 
@@ -37,4 +38,5 @@ app.use('/match-detail',matchDetailRoutes)
 app.use('/goal', goalRoutes)
 app.use('/match', matchRoutes);
 app.use('/club', clubRoutes);
+app.use('/standing', stadiumRoutes)
 
