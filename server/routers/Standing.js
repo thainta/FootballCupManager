@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', getStanding);
 router.get('/season=:season', getStandingOnSeason);
-router.post('/create/season=:season', createNewGoal);
+router.post('/create/season=:season', createNewClubToStanding);
 router.put('/update/standingId=:standingId', updateStanding);
-router.delete('/delete/season=:season?clubId=:clubId', deleteClubStanding);
+router.delete('/delete/standingId=:standingId', deleteClubStanding);
 export default router;
