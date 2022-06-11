@@ -9,7 +9,7 @@ const getAllUser = (req, res) => {
 }
 
 const getUserById = (req, res) => {
-    let query = req.params;
+    let query = {_id: req.params.clubId};
     UserDb.findOne(query).then((data) => {
         res.send(data);
     }, (err) => {
@@ -33,14 +33,15 @@ const createNewUser = (req, res) => {
     });
 
     user.save().then((data) => { 
-        res.send(data);      
+        res.send(data);
+        return res.status(200).json("Create user success")    
     }, (err)=>{
         res.status(400).send(err.message);
     });
 }
 
 const updateUser = (req, res) => {
-    const query = req.params;
+    let query = {_id: req.params.clubId};
     UserDb.findOneAndUpdate(query,{
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -61,7 +62,7 @@ const updateUser = (req, res) => {
 }
 
 const deleteUser = (req, res) => {
-    const query = req.params;
+    let query = {_id: req.params.clubId};
 
     UserDb.findOneAndRemove(query, (err, user) => {
         if (err) {

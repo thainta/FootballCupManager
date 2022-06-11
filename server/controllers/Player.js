@@ -9,7 +9,7 @@ const getAllPlayers = (req, res) => {
 }
 
 const getPlayerById = (req, res) => {
-    let query = req.params;
+    let query = {_id: req.params.clubId};
     playerDb.findOne(query).then((data) => {
         res.send(data);
     }, (err) => {
@@ -36,7 +36,7 @@ const createNewPlayer = (req, res) => {
 }
 
 const updatePlayer = (req, res) => {
-    const query = req.params;
+    let query = {_id: req.params.clubId};
     playerDb.findOneAndUpdate(query, {
         playerName: req.body.playerName,
         playerRole: req.body.playerRole,
@@ -53,7 +53,7 @@ const updatePlayer = (req, res) => {
 }
 
 const deletePlayer = (req, res) => {
-    const query = req.params;
+    let query = {_id: req.params.clubId};
     playerDb.findOneAndDelete(query, (err, player) => {
         if (err) {
             res.send(err.message);

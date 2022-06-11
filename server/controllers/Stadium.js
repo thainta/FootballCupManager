@@ -9,7 +9,7 @@ const getAllStadium = (req, res) =>{
 }
 
 const getStadiumById = (req, res) =>{
-    let query = req.params;
+    let query = {_id: req.params.clubId};
     stadiumDb.findOne(query).then((data) => {
         res.send(data);
     }, (err) => {
@@ -33,7 +33,7 @@ const createNewStadium = (req, res) =>{
 }
 
 const updateStadium = (req, res) =>{
-    let query = req.params;
+    let query = {_id: req.params.clubId};
 
     stadiumDb.findOneAndUpdate(query,{
         name: req.body.name,
@@ -49,7 +49,7 @@ const updateStadium = (req, res) =>{
 }
 
 const deleteStadium = (req, res) =>{
-    let query = req.params;
+    let query = {_id: req.params.clubId};
 
     stadiumDb.findOneAndDelete(query,(err, data) =>{
         if(err){

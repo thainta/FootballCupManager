@@ -38,7 +38,6 @@ const createNewClub = (req, res) => {
 
 const updateClub = (req, res) => {
     let query = {_id: req.params.clubId};
-    console.log(query)
     clubDb.findOneAndUpdate(query, {
         fullName: req.body.fullName,
         shortName: req.body.shortName,
@@ -56,7 +55,7 @@ const updateClub = (req, res) => {
 }
 
 const deleteClub = (req, res) => {
-    let query = req.params;
+    let query = {_id: req.params.clubId};
 
     clubDb.findOneAndDelete(query, (err, raw) => {
         if(err) {
