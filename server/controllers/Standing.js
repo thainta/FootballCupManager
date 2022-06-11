@@ -11,11 +11,24 @@ const getStanding = async (req, res) =>{
     }
 }
 
+const getAllSeason = async(req, res) =>{
+    try {
+        const allSeason = new Set()
+        const data = await standingDb.find()
+        for (let i = 0; i < Object.keys(data).length; i++){
+            allSeason.add(data[i].season)
+        }
+        res.send(Array.from(allSeason))
+    } catch (error) {
+        res.status(404).send(error)
+    }
+}
+
 const getStandingOnSeason = async (req, res) =>{
     try {
-        const data = await standingDb.find({'season': req.params.season})
+        await sortStanding(req.params.season)
+        const data = await standingDb.find({season: req.params.season}).sort('rank')
         res.send(data);
-
     } catch {
         res.status(404).send({error: "Can't find standing!"})
     }
@@ -33,7 +46,7 @@ const createNewClubToStanding = async (req, res) => {
             goalsFor: 0,
             goalsAgainst: 0,
             goalDifference: 0,
-            seasonId: req.params.season,
+            season: req.params.season,
             clubId: req.body.clubId
         })
         await newClubStanding.save()
@@ -62,57 +75,59 @@ const updateStanding = async (req, res) => {
     }
 }
 
-const updateStandingAfterMatch = async (infor, res) => {
+const updateStandingAfterMatch = async (infor) => {
     try{
-        const club1 = await standingDb.find({'clubId': infor.club1Id})
-        const club2 = await standingDb.find({'clubId': infor.club2Id})
+        const club1 = await standingDb.find({'clubId': infor.club1Id,'season': infor.season})
+        const club2 = await standingDb.find({'clubId': infor.club2Id,'season': infor.season})
+        const winPoint = await parameterDb.find({"nameParameter": "winPoint"})
+        const drawPoint = await parameterDb.find({"nameParameter": "drawnPoint"})
         if (infor.club1Goal > infor.club2Goal){     // club1 win
-            diff = infor.club1Goal - infor.club2Goal
+            let diff = infor.club1Goal - infor.club2Goal
             //update Club1
-            club1.point = club1.point + 3
-            club1.goalDifference = club1.goalDifference + diff
-            club1.goalsAgainst = club1.goalsAgainst + infor.club2Goal
-            club1.goalsFor = club1.goalsFor + infor.club1Goal
-            club1.win++
-            club1.played++
+            club1[0].point = club1[0].point + winPoint[0].value
+            club1[0].goalDifference = club1[0].goalDifference + diff
+            club1[0].goalsAgainst = club1[0].goalsAgainst + infor.club2Goal
+            club1[0].goalsFor = club1[0].goalsFor + infor.club1Goal
+            club1[0].win++
+            club1[0].played++
             //update Club2
-            club2.goalDifference = club2.goalDifference - diff
-            club2.goalsAgainst = club2.goalsAgainst + infor.club1Goal
-            club2.goalsFor = club2.goalsFor + infor.club2Goal
-            club2.lose++
-            club2.played++
+            club2[0].goalDifference = club2[0].goalDifference - diff
+            club2[0].goalsAgainst = club2[0].goalsAgainst + infor.club1Goal
+            club2[0].goalsFor = club2[0].goalsFor + infor.club2Goal
+            club2[0].lose++
+            club2[0].played++
         } else if (infor.club1Goal < infor.club2Goal){     // club2 win
-            diff = infor.club1Goal - infor.club2Goal
+            let diff = infor.club1Goal - infor.club2Goal
             //update Club1
-            club1.goalDifference = club1.goalDifference + diff
-            club1.goalsAgainst = club1.goalsAgainst + infor.club2Goal
-            club1.goalsFor = club1.goalsFor + infor.club1Goal
-            club1.lose++
-            club1.played++
+            club1[0].goalDifference = club1[0].goalDifference + diff
+            club1[0].goalsAgainst = club1[0].goalsAgainst + infor.club2Goal
+            club1[0].goalsFor = club1[0].goalsFor + infor.club1Goal
+            club1[0].lose++
+            club1[0].played++
             //update Club2
-            club2.point = club2.point + 3
-            club2.goalDifference = club2.goalDifference - diff
-            club2.goalsAgainst = club2.goalsAgainst + infor.club1Goal
-            club2.goalsFor = club2.goalsFor + infor.club2Goal
-            club2.win++
-            club2.played++
+            club2[0].point = club2[0].point + winPoint[0].value
+            club2[0].goalDifference = club2[0].goalDifference - diff
+            club2[0].goalsAgainst = club2[0].goalsAgainst + infor.club1Goal
+            club2[0].goalsFor = club2[0].goalsFor + infor.club2Goal
+            club2[0].win++
+            club2[0].played++
         } else{                                       //drawn
             //update Club1
-            club1.point = club1.point + 1
-            club1.goalsAgainst = club1.goalsAgainst + infor.club2Goal
-            club1.goalsFor = club1.goalsFor + infor.club1Goal
-            club1.drawn++
-            club1.played++
+            club1[0].point = club1[0].point + drawPoint[0].value
+            club1[0].goalsAgainst = club1[0].goalsAgainst + infor.club2Goal
+            club1[0].goalsFor = club1[0].goalsFor + infor.club1Goal
+            club1[0].drawn++
+            club1[0].played++
             //update Club2
-            club2.point = club2.point + 1
-            club2.goalsAgainst = club2.goalsAgainst + infor.club1Goal
-            club2.goalsFor = club2.goalsFor + infor.club2Goal
-            club2.drawn++
-            club2.played++
+            club2[0].point = club2[0].point + drawPoint[0].value
+            club2[0].goalsAgainst = club2[0].goalsAgainst + infor.club1Goal
+            club2[0].goalsFor = club2[0].goalsFor + infor.club2Goal
+            club2[0].drawn++
+            club2[0].played++
         }
-
-    } catch {
-        res.status(404).send({error: "can't update"})
+        await club1[0].save()
+        await club2[0].save()
+    }catch{
     }
 }
 
@@ -126,6 +141,34 @@ const deleteClubStanding = async (req, res) => {
     }
 }
 
+const sortStanding = async (season) => {
+    try {
+        const allClub = await standingDb.find({'season': season})
+        let count = Object.keys(allClub).length
+        for (let i = 0; i< count; i++){
+            for (let j = i; j < count; j++){
+                if (allClub[j].point < allClub[i].point){
+                    let swap = allClub[j];
+                    allClub[j] = allClub[i];
+                    allClub[i] = swap;
+                } else if (allClub[j].point == allClub[i].point){
+                    if (allClub[j].goalDifference < allClub[i].goalDifference){
+                        let swap = allClub[j];
+                        allClub[j] = allClub[i];
+                        allClub[i] = swap;
+                    }
+                }
+            }
+        }
+        for (let i = 0; i < count; i++){
+            allClub[i].rank = count - i
+            await allClub[i].save()
+        }
+    } catch (error) {
+        res.status(404).send("error")
+    }
+}
+
 export {
     getStanding,
     getStandingOnSeason,
@@ -133,4 +176,6 @@ export {
     updateStanding,
     updateStandingAfterMatch,
     deleteClubStanding,
+    sortStanding,
+    getAllSeason
 }  
