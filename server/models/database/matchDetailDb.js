@@ -16,9 +16,7 @@ const MatchDetailSchema = new Schema(
   {
     club1Goal: {type: Number},
     club2Goal: {type: Number},
-    typeMatch: {type: String},
-    club1Id: { type: Schema.Types.ObjectId, ref: 'club'},
-    club2Id: { type: Schema.Types.ObjectId, ref: 'club'},
+    typeMatch: {type: Boolean},
     matchId: { type: Schema.Types.ObjectId, ref: 'match'}
   },
   {

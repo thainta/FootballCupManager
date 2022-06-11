@@ -1,5 +1,6 @@
 import matchDb from '../models/database/matchDb.js'
-
+import matchDetailDb from '../models/database/matchDetailDb.js';
+import {createNewMatchDetail} from './MatchDetail.js' 
 const getAllMatchs = async (req, res) => {
     try {
         matchDb.find().then((data)=>{
@@ -24,11 +25,15 @@ const getMatchById = async (req, res) => {
 const createNewMatch = async (req, res) => {
     try{
         const match = new matchDb({
+            club1Id: req.body.club1Id,
+            club2Id: req.body.club2Id,
             timeStart : req.body.timeStart,
             date : req.body.date,
             status : req.body.status,
+            season: req.params.season,
             stadiumId :  req.body.stadiumId,
         })
+        await createNewMatchDetail(match)
         await match.save()
         res.send("create successful!")
     } catch{

@@ -7,6 +7,6 @@ router.get('/', getAllMatchDetails);
 router.get('/matchDetailId=:matchDetailId', getMatchDetailById);
 router.post('/create', createNewMatchDetail);
 router.put('/update/matchDetailId=:matchDetailId', updateMatchDetail);
-router.delete('/delete/matchDetailId=:MatchDetailId', deleteMatchDetail);
+router.delete('/delete/matchDetailId=:matchDetailId', deleteMatchDetail);
 
 export default router;
